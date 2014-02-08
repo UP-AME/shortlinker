@@ -4,8 +4,8 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@yield('html_title') - UP AME Shortlinker</title>
-    <link rel="stylesheet" href="/css/foundation.css" />
-    <script src="/js/modernizr.js"></script>
+    {{ HTML::style('/css/foundation.css'); }}
+	{{ HTML::script('/js/modernizr.js'); }}
   </head>
   <body>
   
@@ -60,8 +60,8 @@
 
 	@yield('content')
         
-    <script src="/js/jquery.js"></script>
-    <script src="/js/foundation.min.js"></script>
+	{{ HTML::script('/js/jquery.js'); }}
+	{{ HTML::script('/js/foundation.min.js'); }}
     <script>
       $(document).foundation();
     </script>
