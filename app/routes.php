@@ -13,7 +13,7 @@
 
 Route::get('/', function()
 {
-	return implode(',', PDO::getAvailableDrivers());
+	return '';
 });
 
 Route::get('admin', function()
