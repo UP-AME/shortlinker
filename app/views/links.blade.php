@@ -12,7 +12,7 @@ View All Shortlinks
 </div>
 <div class="row">
 <div class="large-12 columns">
-<form id="form" method="post" action="/admin/list">
+<form id="form" method="post" action="/admin/view">
 <input type="hidden" name="id" id="toggle" />
 <table>
   <thead>

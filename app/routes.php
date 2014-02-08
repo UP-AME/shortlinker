@@ -61,3 +61,17 @@ Route::get('admin/view', function() {
 	$links = Links::all();
 	return View::make('links')->with('links', $links);
 });
+
+Route::post('admin/view', function() {
+	$id = Input::get('id');
+	$link = Links::find($id);
+	if ($link->active)
+		$link->active = false;
+	else
+		$link->active = true;
+	$link->save();
+
+	$links = Links::all();
+	return View::make('links')->with('links', $links);
+
+});
