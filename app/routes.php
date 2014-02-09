@@ -67,7 +67,7 @@ Route::post('admin/add', function() {
 		$link->public = $public;
 		$link->save();
 		$links = Links::all();
-		return View::make('links')->with('html_flash_success', 'You have successfully linked http://link.up-ame.org/' . $shortlink . ' to ' . $url . '</a>.')->with('links', $links);
+		return Redirect::to('/admin/view')->with('html_flash_success', 'You have successfully linked http://link.up-ame.org/' . $shortlink . ' to ' . $url . '</a>.')->with('links', $links);
 	}
 });
 
@@ -99,13 +99,17 @@ Route::post('admin/edit/{id}', function($id) {
 		$link->public = $public;
 		$link->save();
 		$links = Links::all();
-		return View::make('links')->with('html_flash_success', 'You have successfully linked http://link.up-ame.org/' . $shortlink . ' to ' . $url . '</a>.')->with('links', $links);
+		return Redirect::to('/admin/view')->with('html_flash_success', 'You have successfully linked http://link.up-ame.org/' . $shortlink . ' to ' . $url . '</a>.')->with('links', $links);
 	}
 });
 
 Route::get('admin/view', function() {
 	$links = Links::all();
-	return View::make('links')->with('links', $links);
+	$session = array('links' => $links);
+	if (Session::has('html_flash_success')) {
+		$session['html_flash_success'] = Session::get('html_flash_success');
+	}
+	return View::make('links', $session);
 });
 
 Route::post('admin/view', function() {
