@@ -28,7 +28,7 @@ View All Shortlinks
       <td>{{ $link->shortlink }}</td>
       <td><a href="{{ $link->url }}" target="_blank">{{ $link->url }}</a></td>
       <td>
-        <a class="button tiny round">Edit</a>
+        <a href="/admin/edit/{{ $link->id }}" class="button tiny round">Edit</a>
         &nbsp;
 		@if ($link->active)
           <a onclick="document.getElementById('toggle').value = {{ $link->id }}; document.getElementById('form').submit();" class="button tiny alert round">Disable</a>

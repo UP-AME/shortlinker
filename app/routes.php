@@ -57,6 +57,34 @@ Route::post('admin/add', function() {
 	}
 });
 
+Route::get('admin/edit/{id}', function($id) {
+	$link = Links::find($id);
+	return View::make('edit')->with('link', $link);
+});
+
+Route::post('admin/edit/{id}', function($id) {
+	$shortlink = strtolower(Input::get('shortlink'));
+	$url = Input::get('url');
+	$link = Links::find($id);
+
+	if (preg_match('/^[A-Za-z0-9]+$/', $shortlink) == 0) {
+		return View::make('edit')->with('html_flash_warning', 'The shortlink "' . $shortlink . '" is invalid.')->with('link', $link);
+	} else if (($shortlink != $link->shortlink) && (Links::where('shortlink', $shortlink)->exists())) {
+		return View::make('edit')->with('html_flash_warning', 'The shortlink "' . $shortlink . '" already exists.')->with('link', $link);
+	} else {
+		if (preg_match('/^http:\/\/.*|^https:\/\//', $url) == 0) {
+			$url = 'http://' . $url;
+		}
+
+		$link->shortlink = $shortlink;
+		$link->url = $url;
+		$link->active = true;
+		$link->save();
+		$links = Links::all();
+		return View::make('links')->with('html_flash_success', 'You have successfully linked http://link.up-ame.org/' . $shortlink . ' to ' . $url . '.')->with('links', $links);
+	}
+});
+
 Route::get('admin/view', function() {
 	$links = Links::all();
 	return View::make('links')->with('links', $links);

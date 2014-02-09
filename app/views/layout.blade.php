@@ -62,9 +62,9 @@
 
 	@yield('content')
         
-	{{ HTML::script('/public/js/jquery.js'); }}
+	{{ HTML::script('/public/js/vendor/jquery.js'); }}
 	{{ HTML::script('/public/js/foundation.min.js'); }}
-	{{ HTML::script('/js/jquery.js'); }}
+	{{ HTML::script('/js/vendor/jquery.js'); }}
 	{{ HTML::script('/js/foundation.min.js'); }}
 
     <script>
