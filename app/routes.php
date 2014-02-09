@@ -66,7 +66,8 @@ Route::post('admin/add', function() {
 		$link->active = true;
 		$link->public = $public;
 		$link->save();
-		return View::make('form')->with('html_flash_success', 'You have successfully linked http://link.up-ame.org/' . $shortlink . ' to ' . $url . '.');
+		$links = Links::all();
+		return View::make('links')->with('html_flash_success', 'You have successfully linked http://link.up-ame.org/' . $shortlink . ' to ' . $url . '</a>.')->with('links', $links);
 	}
 });
 
@@ -98,7 +99,7 @@ Route::post('admin/edit/{id}', function($id) {
 		$link->public = $public;
 		$link->save();
 		$links = Links::all();
-		return View::make('links')->with('html_flash_success', 'You have successfully linked http://link.up-ame.org/' . $shortlink . ' to ' . $url . '.')->with('links', $links);
+		return View::make('links')->with('html_flash_success', 'You have successfully linked http://link.up-ame.org/' . $shortlink . ' to ' . $url . '</a>.')->with('links', $links);
 	}
 });
 
