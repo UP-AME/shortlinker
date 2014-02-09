@@ -19,6 +19,7 @@ View All Shortlinks
     <tr>
       <th>Shortlink</th>
       <th>Redirect URL</th>
+      <th>Public Link?</th>
       <th width="600">Actions</th>
     </tr>
   </thead>
@@ -27,6 +28,13 @@ View All Shortlinks
     <tr>
       <td>{{ $link->shortlink }}</td>
       <td><a href="{{ $link->url }}" target="_blank">{{ $link->url }}</a></td>
+	  <td>
+		@if ($link->public)
+			Yes
+		@else
+			No
+		@endif
+	  </td>
       <td>
         <a href="/admin/edit/{{ $link->id }}" class="button tiny round">Edit</a>
         &nbsp;

@@ -24,7 +24,16 @@ Route::get('admin', function()
 
 Route::get('{shortlink}', function($shortlink = shortlink)
 {
-	$link = Links::where('shortlink', $shortlink)->where('active', true)->first();
+	$link = Links::where('shortlink', $shortlink)->where('active', true)->where('public', true)->first();
+	if ($link == null)
+		return '';
+	else
+		return Response::make( '', 302 )->header('Location', $link->url);
+})->where('shortlink', '[^/]+');
+
+Route::get('internal/{shortlink}', function($shortlink = shortlink)
+{
+	$link = Links::where('shortlink', $shortlink)->where('active', true)->where('public', false)->first();
 	if ($link == null)
 		return '';
 	else
@@ -38,6 +47,9 @@ Route::get('admin/add', function() {
 Route::post('admin/add', function() {
 	$shortlink = strtolower(Input::get('shortlink'));
 	$url = Input::get('url');
+	$public = Input::get('public');
+	if ($public == NULL)
+		$public = false;
 
 	if (preg_match('/^[A-Za-z0-9]+$/', $shortlink) == 0) {
 		return View::make('form')->with('html_flash_warning', 'The shortlink "' . $shortlink . '" is invalid.');
@@ -52,6 +64,7 @@ Route::post('admin/add', function() {
 		$link->shortlink = $shortlink;
 		$link->url = $url;
 		$link->active = true;
+		$link->public = $public;
 		$link->save();
 		return View::make('form')->with('html_flash_success', 'You have successfully linked http://link.up-ame.org/' . $shortlink . ' to ' . $url . '.');
 	}
@@ -65,6 +78,9 @@ Route::get('admin/edit/{id}', function($id) {
 Route::post('admin/edit/{id}', function($id) {
 	$shortlink = strtolower(Input::get('shortlink'));
 	$url = Input::get('url');
+	$public = Input::get('public');
+	if ($public == NULL)
+		$public = false;
 	$link = Links::find($id);
 
 	if (preg_match('/^[A-Za-z0-9]+$/', $shortlink) == 0) {
@@ -79,6 +95,7 @@ Route::post('admin/edit/{id}', function($id) {
 		$link->shortlink = $shortlink;
 		$link->url = $url;
 		$link->active = true;
+		$link->public = $public;
 		$link->save();
 		$links = Links::all();
 		return View::make('links')->with('html_flash_success', 'You have successfully linked http://link.up-ame.org/' . $shortlink . ' to ' . $url . '.')->with('links', $links);

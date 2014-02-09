@@ -14,7 +14,7 @@ Create Shortlink
     <div class="row">
       <div class="large-12 columns">
       	<div class="panel">
-          <p>Please note that this is a basic interface and that bugs are expected. Shortlinks are accessed via http://link.up-ame.org/yourshortlinkname.</p>
+          <p>Please note that this is a basic interface and that bugs are expected.<br /><br />Shortlinks are accessed via <a>http://link.up-ame.org/yourshortlinkname</a> for public links and <a>http://link.up-ame.org/internal/yourshortlinkname</a> for internal links.</p>
       	</div>
       </div>
     </div>
@@ -32,6 +32,12 @@ Create Shortlink
 	  <input type="text" name="url" placeholder="http://www.google.com/" />
 	</div>
       </div>
+	<div class="row">
+		<div class="large-12 columns">
+			<label>Public link?</label>
+			{{ Form::checkbox('public', 'public', true) }}
+		</div>
+	</div>
       <div class="row">
 	<div class="small-3 columns">
           <div class="row">

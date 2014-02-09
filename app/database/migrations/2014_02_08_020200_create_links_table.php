@@ -17,6 +17,7 @@ class CreateLinksTable extends Migration {
 			$table->string('shortlink')->unique();
 			$table->string('url');
 			$table->boolean('active');
+			$table->boolean('public');
 			$table->timestamps();
 		});
 	}
